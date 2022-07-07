@@ -48,16 +48,9 @@ const children = document.querySelectorAll(".children");
 					el.insertAdjacentElement("beforeend", element)
 				})
 			gameEnd()
-			//ai();
 			list.push(currentNumber);
 			}})
 	 	});
-
-		function ai() {
-			function randomNumber(min, max) { 
-    				return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
-			}	
-		}
 		
 		let listX = [];
 		let listO = [];
@@ -130,5 +123,4 @@ const children = document.querySelectorAll(".children");
 			listO.splice(0, listO.length);
 			listX.splice(0, listX.length);
 			list.length = 0;
-			console.log(Gameboard.gameboard);
 		})
