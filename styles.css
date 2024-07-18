@@ -13,121 +13,121 @@ body {
 	place-items: center;
 }
 
-		.container {
-			width: 60vmin;
-			height: 60vmin;
-			display: grid;
-			grid-template-columns: repeat(3, 33%);
-			grid-template-rows: repeat(3, 33%);
-			-webkit-tap-highlight-color: transparent;
-		}
+.container {
+	width: 60vmin;
+	height: 60vmin;
+	display: grid;
+	grid-template-columns: repeat(3, 33%);
+	grid-template-rows: repeat(3, 33%);
+	-webkit-tap-highlight-color: transparent;
+}
 
-		.container > div:first-child {
-			border-left-color: transparent;
-			border-top-color: transparent;
-		}
+.container > div:first-child {
+	border-left-color: transparent;
+	border-top-color: transparent;
+}
 
-		.container > div:nth-of-type(2) {
-			border-top-color: transparent;
-		}
+.container > div:nth-of-type(2) {
+	border-top-color: transparent;
+}
 
-		.container > div:nth-of-type(3) {
-			border-right-color: transparent;
-			border-top-color: transparent;
-		}
+.container > div:nth-of-type(3) {
+	border-right-color: transparent;
+	border-top-color: transparent;
+}
 
-		.container > div:nth-of-type(4) {
-			border-left-color: transparent;
-		}
+.container > div:nth-of-type(4) {
+	border-left-color: transparent;
+}
 
-		.container > div:nth-of-type(6) {
-			border-right-color: transparent;
-		}
+.container > div:nth-of-type(6) {
+	border-right-color: transparent;
+}
 
-		.container > div:nth-of-type(7) {
-			border-left-color: transparent;
-			border-bottom-color: transparent;
-		}
+.container > div:nth-of-type(7) {
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+}
 
-		
-		.container > div:nth-of-type(8) {
-			border-bottom-color: transparent;
-		}
 
-		
-		.container > div:nth-of-type(9) {
-			border-right-color: transparent;
-			border-bottom-color: transparent;
-		}
+.container > div:nth-of-type(8) {
+	border-bottom-color: transparent;
+}
 
-		.children {
-			width: 100%;
-			height: 100%;
-			border: 4px solid #676767;
-			display: grid;
-			place-items: center;
-			cursor: pointer;
-		}
 
-		.element {
-			line-height: 0.9;
-			user-select: none;
-		}
+.container > div:nth-of-type(9) {
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+}
 
-		.card {
-			position: absolute;
-			background-color: #e4e4e4;
-			padding: 1rem 1.5rem;
-			border-radius: .5rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-			transform: translateY(-100vh);
-			transition: transform 0.5s ease-out;
-		}
+.children {
+	width: 100%;
+	height: 100%;
+	border: 4px solid #676767;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+}
 
-		.reload, .desc {
-			margin: .6rem;
-		}
+.element {
+	line-height: 0.9;
+	user-select: none;
+}
 
-		.reload {
-			padding: .3rem .6rem;
-			background-color: #45EBA5;
-			border: none;
-			border-radius: .5rem;
-			cursor: pointer;
-			width: 100%;
-		}
+.card {
+	position: absolute;
+	background-color: #e4e4e4;
+	padding: 1rem 1.5rem;
+	border-radius: .5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	transform: translateY(-100vh);
+	transition: transform 0.5s ease-out;
+}
 
-		circle {
-			fill: transparent;
-  			stroke-width: 15px;
-			stroke-dasharray: 471;
-			stroke-dashoffset: 471;
-			animation: clock-animation .9s ease-out forwards;
-			transform-origin: center;
-			transform: rotate(-90deg);
-		}
+.reload, .desc {
+	margin: .6rem;
+}
 
-		@keyframes clock-animation {
-			to {
-				stroke-dashoffset: 0;
-			}
-		}
+.reload {
+	padding: .3rem .6rem;
+	background-color: #45EBA5;
+	border: none;
+	border-radius: .5rem;
+	cursor: pointer;
+	width: 100%;
+}
 
-		line {
-			stroke-dasharray: 1000;
-			stroke-dashoffset: 1000;
-			animation: dash .9s ease-out forwards;
-		}
+circle {
+	fill: transparent;
+	stroke-width: 15px;
+	stroke-dasharray: 471;
+	stroke-dashoffset: 471;
+	animation: clock-animation .9s ease-out forwards;
+	transform-origin: center;
+	transform: rotate(-90deg);
+}
 
-		.line-2 {
-			animation-delay: 0.2s;
-		}
+@keyframes clock-animation {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
 
-		@keyframes dash {
-			to {
-				stroke-dashoffset: 0;
-			}
-		}
+line {
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 1000;
+	animation: dash .9s ease-out forwards;
+}
+
+.line-2 {
+	animation-delay: 0.2s;
+}
+
+@keyframes dash {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
