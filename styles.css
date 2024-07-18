@@ -20,59 +20,29 @@ body {
 	grid-template-columns: repeat(3, 33%);
 	grid-template-rows: repeat(3, 33%);
 	-webkit-tap-highlight-color: transparent;
-}
-
-.container > div:first-child {
-	border-left-color: transparent;
-	border-top-color: transparent;
-}
-
-.container > div:nth-of-type(2) {
-	border-top-color: transparent;
-}
-
-.container > div:nth-of-type(3) {
-	border-right-color: transparent;
-	border-top-color: transparent;
-}
-
-.container > div:nth-of-type(4) {
-	border-left-color: transparent;
-}
-
-.container > div:nth-of-type(6) {
-	border-right-color: transparent;
-}
-
-.container > div:nth-of-type(7) {
-	border-left-color: transparent;
-	border-bottom-color: transparent;
-}
-
-
-.container > div:nth-of-type(8) {
-	border-bottom-color: transparent;
-}
-
-
-.container > div:nth-of-type(9) {
-	border-right-color: transparent;
-	border-bottom-color: transparent;
+	background-image: url("bg-board.svg");
+	background-size: 100% 100%;
 }
 
 .children {
 	width: 100%;
 	height: 100%;
-	border: 4px solid #676767;
 	display: grid;
 	place-items: center;
 	cursor: pointer;
+	padding: 0.8rem;
+	background-color: transparent;
+	border: none;
 }
 
-.element {
+.children:focus-visible {
+	outline: 2px solid red;
+}
+
+/* .element {
 	line-height: 0.9;
 	user-select: none;
-}
+} */
 
 .card {
 	position: absolute;

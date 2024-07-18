@@ -1,26 +1,54 @@
 const children = document.querySelectorAll(".children");
-const container = document.querySelector(".container");
 
-let markerX = `<svg height="170" width="170">
-<line x1="10" y1="10" x2="160" y2="160" style="stroke:#163A5F; stroke-width:15" />
-<line class="line-2" x1="160" y1="10" x2="10" y2="160" style="stroke:#163A5F; stroke-width:15" />
-</svg>`;
-
-let markerO = `<svg width="170" height="170">
-<circle cx="50%" cy="50%" r="75" stroke="#21ABA5" stroke-width="15 fill="transparent" />
-</svg>`;
+const markerX = `
+<svg viewBox="0 0 170 170"  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <line x1="10" y1="10" x2="160" y2="160" style="stroke:#163A5F; stroke-width:15" />
+    <line class="line-2" x1="160" y1="10" x2="10" y2="160" style="stroke:#163A5F; stroke-width:15" />
+</svg>`
+const markerO = `
+<svg  viewBox="0 0 170 170"  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+	<circle cx="50%" cy="50%" r="75" stroke="#21ABA5" stroke-width="15 fill="transparent" />
+</svg>`
 		
 const Gameboard = {
 	gameboard: [],
 	player: []
 }
 
+let isMarkerX = false
+const handleClick = () => {
+    const markedField = (number, marker) => {
+        return { number, marker }
+    }
+
+    const displayMarker = (el, marker) => {
+        el.innerHTML = ""
+        let element = document.createElement("div")
+        element.innerHTML = marker
+        el.insertAdjacentElement("beforeend", element)
+    }
+
+    children.forEach((el, index) => {
+        if(!list.includes(index + 1)) {
+            isMarkerX ? !isMarkerX : isMarkerX
+            
+            let currentField = markedField(index + 1, letterMarker)
+		    Gameboard.gameboard.push(currentField)
+            displayMarker(el, currentMarker)
+
+            gameEnd()
+            list.push(index + 1)
+        }
+    })
+}
+
 let currentMarker = markerO;
 let letterMarker = "O";
 let list = [];
-children.forEach(el => {
+
+children.forEach((el, index) => {
 	el.addEventListener("click", function renderData() {
-		let currentNumber = el.getAttribute("data-number");			
+		let currentNumber = el.getAttribute("data-number");	
 		if(list.includes(currentNumber) == false) {
 			const markedField = (number, marker) => {
 				return { number, marker }
@@ -40,12 +68,12 @@ children.forEach(el => {
 		let currentField = markedField(currentNumber, letterMarker)
 		Gameboard.gameboard.push(currentField);
 		console.log(Gameboard.gameboard);
-		Gameboard.gameboard.map(({marker}) => {
+		//Gameboard.gameboard.map(({marker}) => {
 			el.innerHTML = "";
 			let element = document.createElement("div");
 			element.innerHTML = `<p class="element">${currentMarker}</p>`
 			el.insertAdjacentElement("beforeend", element)
-		})
+		//})
 		gameEnd()
 		list.push(currentNumber);
 	}})
