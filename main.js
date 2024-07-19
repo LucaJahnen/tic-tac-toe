@@ -11,9 +11,8 @@ const markerO = `
 </svg>`
 		
 const Gameboard = {
-	gameboard: [],
+	gameboard: Array(9).fill(null),
 	player: [],
-	state: Array(9).fill(null),
 	isMarkerX: false,
 	winCondition: [
 		[0, 1, 2],
@@ -29,7 +28,7 @@ const Gameboard = {
 
 const displayGameboard = () => {
 	children.forEach((child, index) => {
-		Gameboard.state.map((value, i) => {
+		Gameboard.gameboard.map((value, i) => {
 			let marker = null
 			const containsMarker = child.querySelector("svg") != null
 			if(value === "X") {
@@ -54,18 +53,32 @@ const heading = document.querySelector(".winner")
 const desc = document.querySelector(".desc")
 
 const displayWinner = (winner) => {
+	const possibilites = [
+		{
+			title: "Congratulations!",
+			desc: "Player X wins."
+		},
+		{
+			title: "Congratulations!",
+			desc: "Player O wins."
+		},
+		{
+			title: "It's a tie!",
+			desc: "Nobody won. Try again."
+		}
+	]
 	card.style.transform = "translateY(0)"
-	heading.innerHTML = "Congratulations"
-	desc.innerText = "PlayerX wins."
-	Gameboard.state = Array(9).fill(null)
+	heading.innerHTML = possibilites[winner].title
+	desc.innerText = possibilites[winner].desc
+	Gameboard.gameboard = Array(9).fill(null)
 }
 
 
 children.forEach((el, index) => {
 	el.addEventListener("click", () => {
-		if(Gameboard.state[index] === null) {
+		if(Gameboard.gameboard[index] === null) {
 			Gameboard.isMarkerX = !Gameboard.isMarkerX
-			Gameboard.state[index] = Gameboard.isMarkerX ? "X" : "O"
+			Gameboard.gameboard[index] = Gameboard.isMarkerX ? "X" : "O"
 			displayGameboard()
 			checkWinner()
 		}
@@ -76,7 +89,7 @@ const checkWinner = () => {
 	const listX = []
 	const listO = []
 	Gameboard.winCondition.map(condition => {
-		Gameboard.state.map((marker, index) => {
+		Gameboard.gameboard.map((marker, index) => {
 			if(marker === "X" && !listX.includes(index)) {
 				listX.push(index)
 			} else if(marker === "O" && !listO.includes(index)) {
@@ -85,7 +98,7 @@ const checkWinner = () => {
 
 			const xWins = condition.every(el => listX.includes(el))
 			const oWins = condition.every(el => listO.includes(el))
-			const tie = Gameboard.state.every(marker => marker !== null)
+			const tie = Gameboard.gameboard.every(marker => marker !== null)
 			xWins && displayWinner(0)
 			oWins && displayWinner(1)
 			tie && displayWinner(2)
@@ -93,9 +106,9 @@ const checkWinner = () => {
 	})
 }
 
-document.querySelector(".reload").addEventListener("click", function() {
+document.querySelector(".reload").addEventListener("click", () => {
 	card.style.transform = "translateY(-100vh)";
 	children.forEach(el => {
-		el.innerHTML = "";
+		el.innerHTML = ""
 	})
 })

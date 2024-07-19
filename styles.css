@@ -13,6 +13,10 @@ body {
 	place-items: center;
 }
 
+button {
+	cursor: pointer;
+}
+
 .container {
 	width: 60vmin;
 	height: 60vmin;
@@ -29,7 +33,6 @@ body {
 	height: 100%;
 	display: grid;
 	place-items: center;
-	cursor: pointer;
 	padding: 0.8rem;
 	background-color: transparent;
 	border: none;
@@ -39,35 +42,32 @@ body {
 	outline: 2px solid red;
 }
 
-/* .element {
-	line-height: 0.9;
-	user-select: none;
-} */
-
 .card {
 	position: absolute;
-	background-color: #e4e4e4;
-	padding: 1rem 1.5rem;
-	border-radius: .5rem;
+	background-color: #D3D3D3;
+	padding: 1.5rem 2rem;
+	border-radius: 0.6rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	transform: translateY(-100vh);
 	transition: transform 0.5s ease-out;
+	min-width: 25vw;
 }
 
-.reload, .desc {
-	margin: .6rem;
+.desc {
+	margin: 0 0 1.2rem 0;
 }
 
 .reload {
-	padding: .3rem .6rem;
+	padding: 0.6rem 1rem;
 	background-color: #45EBA5;
 	border: none;
 	border-radius: .5rem;
-	cursor: pointer;
 	width: 100%;
+	font-size: 1rem;
+	font-weight: bold;
 }
 
 circle {
