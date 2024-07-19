@@ -9,20 +9,43 @@
 
 body {
 	min-height: 100vh;
-	display: grid;
-	place-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 10vh;
 }
 
 button {
 	cursor: pointer;
 }
 
+.statistics {
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	gap: 0;
+}
+
+.statistics p {
+	color: #B2B2B2;
+}
+
+.statistics section {
+	border-right: 1px solid #D3D3D3;
+	padding: 0 4vmin;
+}
+
+.statistics section:nth-child(3) {
+	border-right: none;
+}
+
 .container {
 	width: 60vmin;
 	height: 60vmin;
 	display: grid;
-	grid-template-columns: repeat(3, 33%);
-	grid-template-rows: repeat(3, 33%);
+	grid-template-columns: repeat(3, calc(100% / 3));
+	grid-template-rows: repeat(3, calc(100% / 3));
 	-webkit-tap-highlight-color: transparent;
 	background-image: url("bg-board.svg");
 	background-size: 100% 100%;

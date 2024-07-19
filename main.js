@@ -39,10 +39,7 @@ const displayGameboard = () => {
 			}
 			// only rerender if child does not already contain a marker
 			if(index === i && containsMarker == false) {
-				child.innerHTML = ""
-				let element = document.createElement("div")
-				element.innerHTML = marker
-				child.insertAdjacentElement("beforeend", element)
+				child.innerHTML = marker	
 			}
 		})
 	})
@@ -56,21 +53,26 @@ const displayWinner = (winner) => {
 	const possibilites = [
 		{
 			title: "Congratulations!",
-			desc: "Player X wins."
+			desc: "Player X wins.",
+			counter: document.querySelector(".wins-count")
 		},
 		{
 			title: "Congratulations!",
-			desc: "Player O wins."
+			desc: "Player O wins.",
+			counter: document.querySelector(".losses-count")
 		},
 		{
-			title: "It's a tie!",
-			desc: "Nobody won. Try again."
+			title: "It's a Tie!",
+			desc: "Nobody won. Try again.",
+			counter: document.querySelector(".ties-count")
 		}
 	]
 	card.style.transform = "translateY(0)"
-	heading.innerHTML = possibilites[winner].title
-	desc.innerText = possibilites[winner].desc
+	heading.textContent = possibilites[winner].title
+	desc.textContent = possibilites[winner].desc
+	possibilites[winner].counter.textContent = Number(possibilites[winner].counter.textContent) + 1
 	Gameboard.gameboard = Array(9).fill(null)
+	executed = true
 }
 
 
@@ -85,22 +87,27 @@ children.forEach((el, index) => {
 	})
 })
 
+let executed = false
 const checkWinner = () => {
+	// create an array that includes the indices of every field that has been marked
 	const listX = []
 	const listO = []
+	const checkGameboard = (List, Marker, marker, index) => {
+		if(marker === Marker && !List.includes(index)) {
+			List.push(index)
+		}
+	}
+
 	Gameboard.winCondition.map(condition => {
 		Gameboard.gameboard.map((marker, index) => {
-			if(marker === "X" && !listX.includes(index)) {
-				listX.push(index)
-			} else if(marker === "O" && !listO.includes(index)) {
-				listO.push(index)
-			}
+			checkGameboard(listX, "X", marker, index)
+			checkGameboard(listO, "O", marker, index)
 
 			const xWins = condition.every(el => listX.includes(el))
 			const oWins = condition.every(el => listO.includes(el))
 			const tie = Gameboard.gameboard.every(marker => marker !== null)
-			xWins && displayWinner(0)
-			oWins && displayWinner(1)
+			xWins && !executed && displayWinner(0)
+			oWins && !executed && displayWinner(1)
 			tie && displayWinner(2)
 		})
 	})
@@ -111,4 +118,5 @@ document.querySelector(".reload").addEventListener("click", () => {
 	children.forEach(el => {
 		el.innerHTML = ""
 	})
+	executed = false
 })
