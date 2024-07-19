@@ -12,134 +12,85 @@ const markerO = `
 		
 const Gameboard = {
 	gameboard: [],
-	player: []
+	player: [],
+	state: Array(9).fill(null),
+	isMarkerX: false,
+	winCondition: [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6]
+	]	
 }
 
-let isMarkerX = false
-const handleClick = () => {
-    const markedField = (number, marker) => {
-        return { number, marker }
-    }
-
-    const displayMarker = (el, marker) => {
-        el.innerHTML = ""
-        let element = document.createElement("div")
-        element.innerHTML = marker
-        el.insertAdjacentElement("beforeend", element)
-    }
-
-    children.forEach((el, index) => {
-        if(!list.includes(index + 1)) {
-            isMarkerX ? !isMarkerX : isMarkerX
-            
-            let currentField = markedField(index + 1, letterMarker)
-		    Gameboard.gameboard.push(currentField)
-            displayMarker(el, currentMarker)
-
-            gameEnd()
-            list.push(index + 1)
-        }
-    })
+const displayGameboard = () => {
+	children.forEach((child, index) => {
+		Gameboard.state.map((value, i) => {
+			let marker = null
+			const containsMarker = child.querySelector("svg") != null
+			if(value === "X") {
+				marker = markerX
+			}
+			if(value === "O") {
+				marker = markerO
+			}
+			// only rerender if child does not already contain a marker
+			if(index === i && containsMarker == false) {
+				child.innerHTML = ""
+				let element = document.createElement("div")
+				element.innerHTML = marker
+				child.insertAdjacentElement("beforeend", element)
+			}
+		})
+	})
 }
 
-let currentMarker = markerO;
-let letterMarker = "O";
-let list = [];
+const card = document.querySelector(".card")
+const heading = document.querySelector(".winner")
+const desc = document.querySelector(".desc")
+
+const displayWinner = (winner) => {
+	card.style.transform = "translateY(0)"
+	heading.innerHTML = "Congratulations"
+	desc.innerText = "PlayerX wins."
+	Gameboard.state = Array(9).fill(null)
+}
+
 
 children.forEach((el, index) => {
-	el.addEventListener("click", function renderData() {
-		let currentNumber = el.getAttribute("data-number");	
-		if(list.includes(currentNumber) == false) {
-			const markedField = (number, marker) => {
-				return { number, marker }
-			}
-
-		if(currentMarker == markerO) {
-			currentMarker = markerX
-		} else {
-			currentMarker = markerO
-		}
-		if(letterMarker == "O") {
-			letterMarker = "X";
-		} else {
-			letterMarker = "O";
-		};
-
-		let currentField = markedField(currentNumber, letterMarker)
-		Gameboard.gameboard.push(currentField);
-		console.log(Gameboard.gameboard);
-		//Gameboard.gameboard.map(({marker}) => {
-			el.innerHTML = "";
-			let element = document.createElement("div");
-			element.innerHTML = `<p class="element">${currentMarker}</p>`
-			el.insertAdjacentElement("beforeend", element)
-		//})
-		gameEnd()
-		list.push(currentNumber);
-	}})
-});
-		
-let listX = [];
-let listO = [];
-let uniqueO;
-let uniqueX;
-const card = document.querySelector(".card");
-const desc = document.querySelector(".desc");
-const heading = document.querySelector(".winner");
-
-function gameEnd() {
-	let booleanO;
-	let booleanX;
-	let winCondition = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["1", "4", "7"], ["2", "5", "8"], ["3", "6", "9"], ["1", "5", "9"], ["3", "5", "7"]]
-	let result = Gameboard.gameboard.filter(obj => {
-			if(obj.marker == "X" === true) {
-				listX.push(obj.number)
-			listX.sort(function(a, b){return a-b})
-			function onlyUnique(value, index, self) {
-				return self.indexOf(value) === index;
-			}
-			uniqueX = listX.filter(onlyUnique);	
-			
-			function includes(a, b) {
-					if(uniqueX.includes(a[0]) && uniqueX.includes(a[1]) && uniqueX.includes(a[2]) == true) {
-						card.style.transform = "translateY(0)";
-					heading.innerHTML = "Congratulations";
-					desc.innerHTML = "Player X wins. Better luck next time.";
-					booleanX = true;
-					}
-			}
-
-			winCondition.map(item => {
-					includes(item, uniqueX)
-			})
-
-			} else if(obj.marker == "O" == true) {
-			listO.push(obj.number)
-			listO.sort(function(a, b){return a-b})
-			function onlyUnique(value, index, self) {
-				return self.indexOf(value) === index;
-			}
-			uniqueO = listO.filter(onlyUnique);	
-			
-			function includes(a, b) {
-					if(uniqueO.includes(a[0]) && uniqueO.includes(a[1]) && uniqueO.includes(a[2]) == true) {
-						card.style.transform = "translateY(0)";
-					heading.innerHTML = "Congratulations"
-					desc.innerHTML = "Player O wins. Better luck next time.";
-					booleanO = true;
-					}
-			}
-
-			winCondition.map(item => {
-					includes(item, uniqueO)
-			})
+	el.addEventListener("click", () => {
+		if(Gameboard.state[index] === null) {
+			Gameboard.isMarkerX = !Gameboard.isMarkerX
+			Gameboard.state[index] = Gameboard.isMarkerX ? "X" : "O"
+			displayGameboard()
+			checkWinner()
 		}
 	})
-	if(Gameboard.gameboard.length == 9 && booleanX == true == false && booleanO == true == false) {
-		card.style.transform = "translateY(0)";
-		heading.innerHTML = "Tie"
-		desc.innerHTML = "Nobody won. Try again and see who is better.";
-	}
+})
+
+const checkWinner = () => {
+	const listX = []
+	const listO = []
+	Gameboard.winCondition.map(condition => {
+		Gameboard.state.map((marker, index) => {
+			if(marker === "X" && !listX.includes(index)) {
+				listX.push(index)
+			} else if(marker === "O" && !listO.includes(index)) {
+				listO.push(index)
+			}
+
+			const xWins = condition.every(el => listX.includes(el))
+			const oWins = condition.every(el => listO.includes(el))
+			const tie = Gameboard.state.every(marker => marker !== null)
+			xWins && displayWinner(0)
+			oWins && displayWinner(1)
+			tie && displayWinner(2)
+		})
+	})
 }
 
 document.querySelector(".reload").addEventListener("click", function() {
@@ -147,8 +98,4 @@ document.querySelector(".reload").addEventListener("click", function() {
 	children.forEach(el => {
 		el.innerHTML = "";
 	})
-	Gameboard.gameboard.length = 0;
-	listO.splice(0, listO.length);
-	listX.splice(0, listX.length);
-	list.length = 0;
 })
