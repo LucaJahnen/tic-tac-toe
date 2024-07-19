@@ -62,7 +62,7 @@ button {
 }
 
 .children:focus-visible {
-	outline: 2px solid red;
+	outline: 4px solid #45EBA5;
 }
 
 .card {
@@ -122,5 +122,16 @@ line {
 @keyframes dash {
 	to {
 		stroke-dashoffset: 0;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	body {
+		gap: 8vh;
+	}
+	
+	.container {
+		width: 85vmin;
+		height: 85vmin;
 	}
 }
